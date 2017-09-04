@@ -1,0 +1,23 @@
+#SPIDGREE MODEL18
+n.pars<-8
+r.par<-sample(1:n.pars,1)
+
+intercept<-ifelse(r.par==1,rnorm(1,2.368,0.1536),2.368)
+
+field<-ifelse(SP.FIELD==7,ifelse(r.par==2,rnorm(1,0.4885,0.1870),0.4885),ifelse(SP.FIELD==8,
+ifelse(r.par==2,rnorm(1,0.2638,0.09125),0.2638),0))
+
+nvc<-ifelse(NVC==3|NVC==4,ifelse(r.par==3,rnorm(1,0.3638,0.07257),0.3638),ifelse(NVC==6|NVC==8|NVC==10,
+ifelse(r.par==3,rnorm(1,0.2939,0.1025),0.2939),ifelse(NVC==7|NVC==9,ifelse(r.par==3,rnorm(1,0.7162,0.1050),0.7162),0)))
+
+layers<-ifelse(r.par==4,rnorm(1,0.1614,0.04127),0.1614)*LAYERS
+
+hedge<-ifelse(HEDGE==1,ifelse(r.par==5,rnorm(1,-0.2736,0.08651),-0.2736),0)
+
+organicp<-ifelse(r.par==6,rnorm(1,-0.04840,0.01775),-0.04840)*sqrt(ORGANICP+0.5)
+
+altitude.ln<-ifelse(r.par==7,rnorm(1,0.1022,0.03041),0.1022)*log(ALTITUDE+1)
+
+cutting<-ifelse(CUTTING==3,ifelse(r.par==8,rnorm(1,-0.3055,0.1179),-0.3055),0)
+
+SspiB<-exp(intercept+field+nvc+layers+hedge+organicp+altitude.ln+cutting)-1
